@@ -115,8 +115,10 @@ nav > ul#menu {
 /* Hover-Effekt Gold */
 .menu-link:hover,
 .menu-link:focus-visible,
+.menu-link[aria-current="page"],
 .submenu-toggle:hover,
-.submenu-toggle:focus-visible {
+.submenu-toggle:focus-visible,
+.contains-current-page > .menu-entry > .submenu-label {
   background-color: #CFA93F; /* Gold */
   color: #12470D; /* Dunkler Text passend zum Gold */
 }
