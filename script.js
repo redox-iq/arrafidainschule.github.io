@@ -44,7 +44,7 @@ async function initializeSharedLayout() {
 }
 
 async function fetchText(url) {
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-cache" });
 
   if (!response.ok) {
     throw new Error(`${url}: HTTP ${response.status}`);
@@ -54,7 +54,7 @@ async function fetchText(url) {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-cache" });
 
   if (!response.ok) {
     throw new Error(`${url}: HTTP ${response.status}`);
