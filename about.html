@@ -5,13 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Arrafidain Kultur Verein e. V. معلومات عامة عن المدرسة">
 <title>عن المدرسة - مَدْرَسَةُ الرَّافِدَينِ العَرَبِيَّة</title>
-<link rel="stylesheet" href="style.css?v=20260724-3" />
+<link rel="stylesheet" href="style.css?v=20260724-4" />
 <link rel="icon" type="image/png" sizes="96x96" href="logo/favicon-96x96.png">
 </head>
 <body>
 
 <!-- ===== HEADER START ===== -->
-<div id="header-placeholder"></div>
+<!-- shared-header:start -->
+<header dir="rtl">
+  <a class="logo" id="school-home-link" href="/index.html">
+    <span id="school-name">مَدْرَسَةُ الرَّافِدَينِ العَرَبِيَّة</span>
+    <img id="school-logo" class="school-logo" src="/logo/ArraRundLogo.png" alt="Arrafidain Schule Logo" />
+  </a>
+  <nav aria-label="القائمة الرئيسية">
+    <ul id="menu">
+      <li><a class="menu-link" href="/index.html">الصفحة الرئيسية</a></li>
+      <li><a class="menu-link" href="/hausaufgaben.html">الواجبات البيتية</a></li>
+      <li><a class="menu-link" href="/anmeldung-ar.html" data-active-paths="/anmeldung.html">التسجيل</a></li>
+      <li><a class="menu-link" href="/about.html" aria-current="page">عن المدرسة</a></li>
+      <li><a class="menu-link" href="/bilder.html">معرض الصور</a></li>
+      <li><a class="menu-link" href="/ads.html">إعلانات</a></li>
+      <li><a class="menu-link" href="/kontakt.html">اتصل بنا</a></li>
+    </ul>
+    <div class="language-switcher" id="language-switcher" hidden></div>
+    <button class="hamburger" id="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="فتح القائمة">☰</button>
+  </nav>
+</header>
+<!-- shared-header:end -->
 <!-- ===== HEADER END ===== -->
 
 
@@ -67,9 +87,18 @@
 </main>
 
 <!-- ===== FOOTER START ===== -->
-<div id="footer-placeholder"></div>
+<!-- shared-footer:start -->
+<footer id="site-footer" data-footer-variant="default">
+  <div class="social-icons">
+    <a href="https://www.facebook.com/profile.php?id=100063760595206#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="/logo/facebook-svgrepo-com.svg" data-hover="/logo/facebook-svgrepo-com-gold.svg" alt="Facebook" width="24" height="24" /></a>
+    <a href="https://www.instagram.com/arrafidain_kulturverein_e.v._/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/logo/instagram-svgrepo-com.svg" data-hover="/logo/instagram-svgrepo-com-gold.svg" alt="Instagram" width="24" height="24" /></a>
+    <a href="https://t.me/arrafidainschule" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="/logo/telegram-svgrepo-com.svg" data-hover="/logo/telegram-svgrepo-com-gold.svg" alt="Telegram" width="24" height="24" /></a>
+    <a href="https://api.whatsapp.com/send?phone=%2B491628762095&amp;fbclid=IwVERDUANRIm1leHRuA2FlbQIxMAABHkUqRrGf_PdHhGmOs4v9boqucDLih2WP7bYO7sEmj5wDbh9OkyNHjbIxFed2_aem_g3Rdl_TAXh38YRRe02caIw" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="/logo/whatsapp-svgrepo-com.svg" data-hover="/logo/whatsapp-svgrepo-com-gold.svg" alt="WhatsApp" width="24" height="24" /></a>
+  </div>
+</footer>
+<!-- shared-footer:end -->
 <!-- ===== FOOTER END ===== -->
   
-<script src="script.js?v=20260724-3"></script>
+<script src="script.js?v=20260724-4"></script>
 </body>
 </html>
