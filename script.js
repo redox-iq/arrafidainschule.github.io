@@ -29,6 +29,9 @@ async function initializeSharedLayout() {
     if (headerPlaceholder) {
       headerPlaceholder.innerHTML = headerHtml;
       renderHeader(config);
+      requestAnimationFrame(() => {
+        headerPlaceholder.classList.add("is-ready");
+      });
     }
 
     if (footerPlaceholder) {
