@@ -1,60 +1,18 @@
-const SHARED_CONTENT = {
-  config: "/structure/site-config.json",
-  header: "/structure/header.html",
-  footer: "/structure/footer.html"
-};
-
 document.addEventListener("DOMContentLoaded", () => {
-  initializeSharedLayout();
+  const menu = document.getElementById("menu");
+
+  if (menu) {
+    markCurrentMenuItem(menu);
+    initializeSubmenus(menu);
+    initializeMenu(menu);
+  }
+
+  initializeLanguageSwitcher();
+  initializeRegistrationForm();
   initializeLatestHomework();
   initializeCollapsibles();
   initializeSocialIconHovers(document);
 });
-
-async function initializeSharedLayout() {
-  const headerPlaceholder = document.getElementById("header-placeholder");
-  const footerPlaceholder = document.getElementById("footer-placeholder");
-
-  if (!headerPlaceholder && !footerPlaceholder) {
-    return;
-  }
-
-  try {
-    const [config, headerHtml, footerHtml] = await Promise.all([
-      fetchJson(SHARED_CONTENT.config),
-      headerPlaceholder ? fetchText(SHARED_CONTENT.header) : Promise.resolve(""),
-      footerPlaceholder ? fetchText(SHARED_CONTENT.footer) : Promise.resolve("")
-    ]);
-
-    if (headerPlaceholder) {
-      headerPlaceholder.innerHTML = headerHtml;
-      renderHeader(config);
-      requestAnimationFrame(() => {
-        headerPlaceholder.classList.add("is-ready");
-      });
-    }
-
-    if (footerPlaceholder) {
-      footerPlaceholder.innerHTML = footerHtml;
-      renderFooter(config, footerPlaceholder.dataset.footerVariant || "default");
-    }
-
-    initializeRegistrationForm(config.registration || {});
-    initializeSocialIconHovers(document);
-  } catch (error) {
-    console.error("Die gemeinsame Seitenstruktur konnte nicht geladen werden:", error);
-  }
-}
-
-async function fetchText(url) {
-  const response = await fetch(url, { cache: "no-cache" });
-
-  if (!response.ok) {
-    throw new Error(`${url}: HTTP ${response.status}`);
-  }
-
-  return response.text();
-}
 
 async function fetchJson(url) {
   const response = await fetch(url, { cache: "no-cache" });
@@ -66,98 +24,24 @@ async function fetchJson(url) {
   return response.json();
 }
 
-function renderHeader(config) {
-  const school = config.school || {};
-  const homeLink = document.getElementById("school-home-link");
-  const schoolName = document.getElementById("school-name");
-  const schoolLogo = document.getElementById("school-logo");
-  const menu = document.getElementById("menu");
+function initializeSubmenus(menu) {
+  menu.querySelectorAll(".has-submenu").forEach(listItem => {
+    const toggle = listItem.querySelector(
+      ":scope > .menu-entry > [aria-controls]"
+    );
 
-  homeLink.href = school.homeUrl || "/index.html";
-  schoolName.textContent = school.name || "";
-  schoolLogo.src = school.logoUrl || "";
-  schoolLogo.alt = school.logoAlt || "";
+    if (!toggle) {
+      return;
+    }
 
-  menu.replaceChildren(
-    ...(config.navigation || []).map((item, index) =>
-      createNavigationItem(item, `menu-item-${index}`)
-    )
-  );
+    toggle.addEventListener("click", event => {
+      event.stopPropagation();
+      const willOpen = !listItem.classList.contains("submenu-open");
 
-  markCurrentMenuItem(menu);
-  initializeMenu(menu);
-  renderLanguageSwitcher(config.translations || {});
-}
-
-function createNavigationItem(item, itemId) {
-  const listItem = document.createElement("li");
-  const children = Array.isArray(item.children) ? item.children : [];
-
-  if (!children.length) {
-    listItem.append(createMenuLink(item));
-    return listItem;
-  }
-
-  listItem.classList.add("has-submenu");
-
-  const entry = document.createElement("div");
-  entry.className = "menu-entry";
-
-  let toggle;
-
-  if (item.href) {
-    entry.append(createMenuLink(item));
-    toggle = document.createElement("button");
-    toggle.className = "submenu-toggle";
-    toggle.type = "button";
-    toggle.setAttribute("aria-label", `فتح القائمة الفرعية: ${item.label}`);
-    toggle.textContent = "▾";
-  } else {
-    toggle = document.createElement("button");
-    toggle.className = "menu-link submenu-label";
-    toggle.type = "button";
-    toggle.textContent = item.label;
-  }
-
-  const submenuId = `${itemId}-submenu`;
-  toggle.setAttribute("aria-controls", submenuId);
-  toggle.setAttribute("aria-expanded", "false");
-  entry.append(toggle);
-
-  const submenu = document.createElement("ul");
-  submenu.className = "submenu";
-  submenu.id = submenuId;
-  submenu.replaceChildren(
-    ...children.map((child, index) =>
-      createNavigationItem(child, `${itemId}-${index}`)
-    )
-  );
-
-  toggle.addEventListener("click", event => {
-    event.stopPropagation();
-    const willOpen = !listItem.classList.contains("submenu-open");
-
-    closeSiblingSubmenus(listItem);
-    setSubmenuState(listItem, willOpen);
+      closeSiblingSubmenus(listItem);
+      setSubmenuState(listItem, willOpen);
+    });
   });
-
-  listItem.append(entry, submenu);
-  return listItem;
-}
-
-function createMenuLink(item) {
-  const link = document.createElement("a");
-  link.className = "menu-link";
-  link.href = item.href || "#";
-  link.textContent = item.label || "";
-
-  if (Array.isArray(item.activePaths)) {
-    link.dataset.activePaths = item.activePaths
-      .map(path => normalizePath(path))
-      .join(",");
-  }
-
-  return link;
 }
 
 function closeSiblingSubmenus(listItem) {
@@ -189,6 +73,10 @@ function initializeMenu(menu) {
   const menuToggle = document.getElementById("menu-toggle");
   const header = menu.closest("header");
 
+  if (!menuToggle || !header) {
+    return;
+  }
+
   const closeMenu = () => {
     menu.classList.remove("show");
     menuToggle.setAttribute("aria-expanded", "false");
@@ -204,7 +92,7 @@ function initializeMenu(menu) {
   });
 
   menu.addEventListener("click", event => {
-    if (event.target.closest("a") && window.matchMedia("(max-width: 768px)").matches) {
+    if (event.target.closest("a") && window.matchMedia("(max-width: 1100px)").matches) {
       closeMenu();
     }
   });
@@ -254,72 +142,19 @@ function normalizePath(path) {
   return withoutIndex.length > 1 ? withoutIndex.replace(/\/$/, "") : withoutIndex;
 }
 
-function renderLanguageSwitcher(translations) {
+function initializeLanguageSwitcher() {
   const container = document.getElementById("language-switcher");
 
-  if (!container) {
+  if (!container || container.hidden) {
     return;
   }
 
-  const currentPath = normalizePath(window.location.pathname);
-  const pageConfig = translations[currentPath];
+  const trigger = container.querySelector(".language-trigger");
+  const options = container.querySelector(".language-options");
 
-  if (!pageConfig || !Array.isArray(pageConfig.options)) {
+  if (!trigger || !options) {
     return;
   }
-
-  const currentOption =
-    pageConfig.options.find(option => option.id === pageConfig.current) ||
-    pageConfig.options[0];
-
-  const trigger = document.createElement("button");
-  trigger.className = "language-trigger";
-  trigger.type = "button";
-  trigger.setAttribute("aria-expanded", "false");
-  trigger.setAttribute("aria-haspopup", "true");
-  trigger.setAttribute("aria-label", pageConfig.ariaLabel || "Sprache auswählen");
-
-  const globe = document.createElement("span");
-  globe.className = "globe-icon";
-  globe.setAttribute("aria-hidden", "true");
-
-  const currentCode = document.createElement("span");
-  currentCode.textContent = currentOption?.code || "";
-
-  const arrow = document.createElement("span");
-  arrow.className = "language-arrow";
-  arrow.setAttribute("aria-hidden", "true");
-  arrow.textContent = "▾";
-
-  trigger.append(globe, currentCode, arrow);
-
-  const options = document.createElement("ul");
-  options.className = "language-options";
-  options.hidden = true;
-
-  pageConfig.options.forEach(option => {
-    const item = document.createElement("li");
-    const link = document.createElement("a");
-    link.href = option.href;
-    link.hreflang = option.lang;
-    link.lang = option.lang;
-    link.dir = option.lang === "ar" ? "rtl" : "ltr";
-
-    if (option.id === pageConfig.current) {
-      link.setAttribute("aria-current", "page");
-    }
-
-    const code = document.createElement("span");
-    code.className = "language-code";
-    code.textContent = option.code;
-
-    const label = document.createElement("span");
-    label.textContent = option.label;
-
-    link.append(code, label);
-    item.append(link);
-    options.append(item);
-  });
 
   const closeLanguageMenu = () => {
     options.hidden = true;
@@ -346,13 +181,11 @@ function renderLanguageSwitcher(translations) {
     }
   });
 
-  container.replaceChildren(trigger, options);
-  container.hidden = false;
 }
 
-function initializeRegistrationForm(registrationConfig) {
+function initializeRegistrationForm() {
   const container = document.getElementById("registration-form");
-  const jetFormUrl = registrationConfig.jetFormUrl?.trim();
+  const jetFormUrl = container?.dataset.jetFormUrl?.trim();
 
   if (!container || !jetFormUrl) {
     return;
@@ -377,65 +210,12 @@ function initializeRegistrationForm(registrationConfig) {
   iframe.title = container.dataset.iframeTitle || "Anmeldeformular";
   iframe.loading = "lazy";
   iframe.referrerPolicy = "strict-origin-when-cross-origin";
-  iframe.style.minHeight = `${registrationConfig.minimumHeight || 900}px`;
+  const minimumHeight =
+    Number.parseInt(container.dataset.minimumHeight, 10) || 900;
+  iframe.style.minHeight = `${minimumHeight}px`;
   container.removeAttribute("aria-labelledby");
   container.setAttribute("aria-label", iframe.title);
   container.replaceChildren(iframe);
-}
-
-function renderFooter(config, variantName) {
-  const footer = document.getElementById("site-footer");
-
-  if (!footer) {
-    return;
-  }
-
-  const variant =
-    config.footerVariants?.[variantName] ||
-    config.footerVariants?.default ||
-    {};
-
-  if (Array.isArray(variant.copyrightLines)) {
-    footer.replaceChildren(
-      ...variant.copyrightLines.map(line => {
-        const paragraph = document.createElement("p");
-        paragraph.textContent = line;
-        return paragraph;
-      })
-    );
-    return;
-  }
-
-  const selectedLabels = new Set(variant.socialLinks || []);
-  const socialLinks = (config.socialLinks || []).filter(item =>
-    selectedLabels.has(item.label)
-  );
-  const container = document.createElement("div");
-  container.className = "social-icons";
-
-  const links = socialLinks.map(item => {
-    const link = document.createElement("a");
-    link.href = item.href;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", item.label);
-
-    const image = document.createElement("img");
-    image.src = item.icon;
-    image.alt = item.label;
-    image.width = 24;
-    image.height = 24;
-
-    if (variant.hoverIcons !== false && item.hoverIcon) {
-      image.dataset.hover = item.hoverIcon;
-    }
-
-    link.append(image);
-    return link;
-  });
-
-  container.replaceChildren(...links);
-  footer.replaceChildren(container);
 }
 
 function initializeSocialIconHovers(root) {
