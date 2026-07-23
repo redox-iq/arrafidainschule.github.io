@@ -23,29 +23,6 @@ html, body {
   height: 100%;
 }
 
-/* Der grüne Headerbereich bleibt während des Seitenwechsels sichtbar.
-   Der dynamisch geladene Inhalt wird anschließend dezent eingeblendet. */
-#header-placeholder {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1000;
-  min-height: 60px;
-  background-color: #12470D;
-}
-
-#header-placeholder > header {
-  opacity: 0;
-  transform: translateY(-2px);
-  transition: opacity 120ms ease-out, transform 120ms ease-out;
-}
-
-#header-placeholder.is-ready > header {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* Header Styling */
 header {
   background-color: #12470D;
@@ -60,12 +37,6 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #header-placeholder > header {
-    transition: none;
-  }
 }
 
 /* Hauptinhalt */
