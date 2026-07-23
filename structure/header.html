@@ -1,17 +1,18 @@
-<header>
-  <div class="logo" onclick="window.location.href='index.html'">
-    مَدْرَسَةُ الرَّافِدَينِ العَرَبِيَّة
-    <img src="logo/ArraRundLogo.png" alt="Arrafidain Schule Logo" class="school-logo" />
-  </div>
-  <nav>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <ul id="menu">
-      <li><a href="index.html">الصفحة الرئيسية</a></li>
-      <li><a href="hausaufgaben.html">الواجبات البيتية</a></li>
-      <li><a href="about.html">عن المدرسة</a></li>
-      <li><a href="bilder.html">معرض الصور</a></li>
-      <li><a href="ads.html">إعلانات</a></li>
-      <li><a href="kontakt.html">اتصل بنا</a></li>
-    </ul>
+<header dir="rtl">
+  <a class="logo" id="school-home-link">
+    <span id="school-name"></span>
+    <img id="school-logo" class="school-logo" />
+  </a>
+  <nav aria-label="القائمة الرئيسية">
+    <ul id="menu"></ul>
+    <div class="language-switcher" id="language-switcher" hidden></div>
+    <button
+      class="hamburger"
+      id="menu-toggle"
+      type="button"
+      aria-controls="menu"
+      aria-expanded="false"
+      aria-label="فتح القائمة"
+    >☰</button>
   </nav>
 </header>
