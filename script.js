@@ -224,7 +224,7 @@ function initializeMenu(menu) {
   });
 
   window.addEventListener("resize", () => {
-    if (!window.matchMedia("(max-width: 768px)").matches) {
+    if (!window.matchMedia("(max-width: 1100px)").matches) {
       closeMenu();
     }
   });
