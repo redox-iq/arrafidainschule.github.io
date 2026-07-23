@@ -1,0 +1,127 @@
+{
+  "school": {
+    "name": "مَدْرَسَةُ الرَّافِدَينِ العَرَبِيَّة",
+    "homeUrl": "/index.html",
+    "logoUrl": "/logo/ArraRundLogo.png",
+    "logoAlt": "Arrafidain Schule Logo"
+  },
+  "navigation": [
+    {
+      "label": "الصفحة الرئيسية",
+      "href": "/index.html"
+    },
+    {
+      "label": "الواجبات البيتية",
+      "href": "/hausaufgaben.html"
+    },
+    {
+      "label": "التسجيل",
+      "href": "/anmeldung-ar.html",
+      "activePaths": ["/anmeldung.html"]
+    },
+    {
+      "label": "عن المدرسة",
+      "href": "/about.html"
+    },
+    {
+      "label": "معرض الصور",
+      "href": "/bilder.html"
+    },
+    {
+      "label": "إعلانات",
+      "href": "/ads.html"
+    },
+    {
+      "label": "اتصل بنا",
+      "href": "/kontakt.html"
+    }
+  ],
+  "socialLinks": [
+    {
+      "label": "Facebook",
+      "href": "https://www.facebook.com/profile.php?id=100063760595206#",
+      "icon": "/logo/facebook-svgrepo-com.svg",
+      "hoverIcon": "/logo/facebook-svgrepo-com-gold.svg"
+    },
+    {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/arrafidain_kulturverein_e.v._/",
+      "icon": "/logo/instagram-svgrepo-com.svg",
+      "hoverIcon": "/logo/instagram-svgrepo-com-gold.svg"
+    },
+    {
+      "label": "Telegram",
+      "href": "https://t.me/arrafidainschule",
+      "icon": "/logo/telegram-svgrepo-com.svg",
+      "hoverIcon": "/logo/telegram-svgrepo-com-gold.svg"
+    },
+    {
+      "label": "WhatsApp",
+      "href": "https://api.whatsapp.com/send?phone=%2B491628762095&fbclid=IwVERDUANRIm1leHRuA2FlbQIxMAABHkUqRrGf_PdHhGmOs4v9boqucDLih2WP7bYO7sEmj5wDbh9OkyNHjbIxFed2_aem_g3Rdl_TAXh38YRRe02caIw",
+      "icon": "/logo/whatsapp-svgrepo-com.svg",
+      "hoverIcon": "/logo/whatsapp-svgrepo-com-gold.svg"
+    }
+  ],
+  "translations": {
+    "/anmeldung.html": {
+      "current": "de",
+      "ariaLabel": "Sprache auswählen",
+      "options": [
+        {
+          "id": "de",
+          "code": "DE",
+          "label": "Deutsch",
+          "href": "/anmeldung.html",
+          "lang": "de"
+        },
+        {
+          "id": "ar",
+          "code": "ض",
+          "label": "العربية",
+          "href": "/anmeldung-ar.html",
+          "lang": "ar"
+        }
+      ]
+    },
+    "/anmeldung-ar.html": {
+      "current": "ar",
+      "ariaLabel": "اختيار اللغة",
+      "options": [
+        {
+          "id": "de",
+          "code": "DE",
+          "label": "Deutsch",
+          "href": "/anmeldung.html",
+          "lang": "de"
+        },
+        {
+          "id": "ar",
+          "code": "ض",
+          "label": "العربية",
+          "href": "/anmeldung-ar.html",
+          "lang": "ar"
+        }
+      ]
+    }
+  },
+  "registration": {
+    "jetFormUrl": "",
+    "minimumHeight": 900
+  },
+  "footerVariants": {
+    "default": {
+      "socialLinks": ["Facebook", "Instagram", "Telegram", "WhatsApp"],
+      "hoverIcons": true
+    },
+    "archive": {
+      "socialLinks": ["Facebook", "Instagram", "Telegram"],
+      "hoverIcons": false
+    },
+    "copyright": {
+      "copyrightLines": [
+        "© 2025 Arrafidain Kultur Verein e.V. — Alle Rechte vorbehalten",
+        "© ٢٠٢٥ مدرسة الرافدين العربية — جميع الحقوق محفوظة"
+      ]
+    }
+  }
+}
