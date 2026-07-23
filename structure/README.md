@@ -1,6 +1,19 @@
 # Gemeinsame Seitenstruktur
 
-Kopfbereich, Navigation und Footer werden auf allen Seiten gemeinsam verwendet.
+Kopfbereich, Navigation und Footer werden aus `site-config.json` statisch in
+alle Hauptseiten geschrieben. Besucher erhalten dadurch sofort vollständiges
+HTML; Header und Footer müssen nicht erst im Browser nachgeladen werden.
+
+Nach einer Änderung an der Konfiguration wird die Ausgabe mit folgendem Befehl
+neu erzeugt:
+
+```powershell
+node tools/render-shared-layout.mjs
+```
+
+Die Bereiche zwischen `shared-header:start/end` und
+`shared-footer:start/end` sind generiert und sollten nicht von Hand bearbeitet
+werden.
 
 ## Menü erweitern
 
@@ -36,7 +49,7 @@ Untermenüs können beliebig tief über `children` verschachtelt werden:
 Menüpunkt ausschließlich zum Öffnen des Untermenüs.
 
 Die unterschiedlichen vorhandenen Footer-Ausführungen werden über
-`data-footer-variant` am Footer-Platzhalter ausgewählt und in
+`data-footer-variant` am generierten Footer ausgewählt und in
 `site-config.json` zentral gepflegt.
 
 ## Übersetzte Seiten
